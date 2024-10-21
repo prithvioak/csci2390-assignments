@@ -26,3 +26,8 @@ _"Combine what you learn from both datasets to learn more information about Kina
 
 Since Kinan's data did not change from last year and nor did their age group (if they are 30 this year they were 29 last year), we can be sure that Kinan indicated one of American Football, Soccer, or E-Sports last year. If we compare these with the options for this year–soccer and basketball–we can conclude with surety that Kinan's favorite sport is **soccer**!
 
+## Part 2
+_"Identify the sensitivity of the histogram query grouped by age and music taste."_
+We touched upon this in class, but the sensitivity of the histogram grouped by age and music taste is **1**. Since each user's datapoint in a count operation has a value of 1, any neighboring table's values can be separated by at most 1 across all the rows. In general, any count operation has a sensitivity of 1, as removing a user can only ever change the count by 1.
+
+## Question 6
