@@ -39,22 +39,29 @@ def plot(epsilon):
 
   # We will store the frequency for each observed value in d.
   d = {}
+  most_common = (0,0)
+  total = 0
   for i in range(ITERATIONS):
     headers, rows = dp_histogram(epsilon)
     # Get the value of the first row (age 0 and hip hop).
     value = round(rows[0][-1])
     d[value] = d.get(value, 0) + 1
+    if d[value] > most_common[1]:
+      most_common = (value, d[value])
+  total = sum([value * d[value] for value in d.keys()])
 
   # Turn the frequency dictionary into a plottable sequence.
   vmin, vmax = min(d.keys()) - 3, max(d.keys()) + 3
   xs = list(range(vmin, vmax + 1))
   ys = [d.get(x, 0) / ITERATIONS for x in xs]
 
+  print("Most common value:", most_common[0], "with frequency", most_common[1] / ITERATIONS)
+  print("Average value:", total / ITERATIONS)
   # Plot.
   pyplot.plot(xs, ys, 'o-', ds='steps-mid')
   pyplot.xlabel("Count value")
   pyplot.ylabel("Frequency")
-  pyplot.savefig('dp-plot.png')
+  pyplot.savefig('dp-plot-'+str(epsilon)+'.png')
 
 # Run this for epsilon 0.5
 if __name__ == "__main__":
@@ -67,8 +74,6 @@ if __name__ == "__main__":
   _pretty_print(headers, rows)
 
   # Plotting code.
-  '''
   print("Plotting, this may take a minute ...")
   plot(epsilon)
   print("Plot saved at 'dp-plot.png'")
-  '''

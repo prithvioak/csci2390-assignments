@@ -31,3 +31,43 @@ _"Identify the sensitivity of the histogram query grouped by age and music taste
 We touched upon this in class, but the sensitivity of the histogram grouped by age and music taste is **1**. Since each user's datapoint in a count operation has a value of 1, any neighboring table's values can be separated by at most 1 across all the rows. In general, any count operation has a sensitivity of 1, as removing a user can only ever change the count by 1.
 
 ## Question 6
+_"What happens when the privacy parameter grows larger or smaller? How does that affect privacy?"_
+
+When I run dp.py for different values of epsilon, it becomes clear that a smaller epsilon causes **greater privacy but less statistical significance**, and a larger epsilon makes values closer to the original but consequently less private. Starting with 0.01, the numbers were as good as random with how high the variability was on this distribution. In fact, most of the values produced seemed to be unhelpful ones until approx. `epsilon=5`. I ran `epsilon=10` a couple of times and saw no change to the values, which suggested that the degree of variability is miniscule.
+
+One thought I had is about the fact that our noised values are taken with any factoring in of the actual count of values. Since the number of datapoints is so small, it should not be the case that we apply similar noising to this dataset as we would to thousands of datapoints.
+
+## Question 7
+_"Look at the plot generated with privacy parameter epsilon = 0.5. What is the most likely value? What is the expected (i.e., average) value? How do they relate to the actual value (i.e., the query excuted without any noise via client.py)? How does the plot change for different values of the privacy parameter?"_
+
+Here is the plot for `epsilon=0.5`:
+![Plot for epsilon=0.5](dp-plot-0.5.png)
+I altered the code a bit to double check which the most common value is. As we expect, it is the **original value of the first row, 1**. This is expected, because the laplace distribution the noise is sampled from is centered at 0, which means that the added noise should most commonly be 0. In a couple of times that I ran this code, the most common was 0 and not 1. This is probably because of the fact that we are sampling from only 150 iterations, plus the impact of rounding on the shape of the laplace distribution.
+
+I also modified the code to check for the average value. It seems like the average value is a little more than one: __1.307__. As we increase the number of iterations, I think that this number would get closer to 1, since the original value of that row is 1.
+
+These are linked to the actual value, since with noise sampled from a laplace distribution, their values will likely converge to the actual value as we increase the number of iterations.
+
+If we compare this plot to that of smaller epsilons, the variability that we discussed in the previous question becomes even more obvious. For The most frequent values can become further from the center and the frequency of the frequent values becomes less with respect to the number of iterations. This makes sense, since there is less frequency at the center of a laplace distribution with a smaller epsilon.
+
+And if we compare this to a much higher value, we notice that the variability is extremely small in the higher values. More than 98% of the values for `epsilon=10` were the actual value, 1. Because of how we round the data and because of the number of observations we take, it seems like the laplace distribution can be most clearly seen around `epsilon=0.5`.
+
+## Part 3
+_"Can you deduce with high certainity Kinan's programming experience level? What if you run the query two, three, or more times?"_
+
+When I ran this query a couple of times, I saw a variety of different values for each row. A lot of the times, the numbers just felt random, with people programming for longer being younger on average (which is pretty unlikely). I did notice that the "more than 10 years" category was seemingly centered around an average age of 29 or 30, but it is definitely not a sure conclusion I had.
+
+## Question 8
+_"Run the composition attack against the average age grouped by programming experience. What can you deduce from the exposed averages about Kinan's programming experience level? How confident are you in what you have deduced? Are there scenarios where they might be wrong?"_
+
+Hi
+
+## Question 9
+_"Reuse your composition attack from question 8 to compute the exact non-noised counts per programming experience level. Deduce Kinan's programming experience level, with high confidence, by looking at both the exposed counts and the previously exposed averages. Now summarize everything you've learned about Kinan!"_
+
+Hey
+
+## Question 10
+_"Does the class you implemented suffice to truly enforce that a dataset is never used beyond a certain privacy budget? Can developers intentionally or unintentionally over-use the dataset beyond the privacy budget? At a very high level, how would you design a different privacy budget enforcment mechanism that does not suffer these drawbacks?"_
+
+Hello
