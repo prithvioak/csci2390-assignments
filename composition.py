@@ -31,7 +31,7 @@ def expose(query_func):
     # making many queries.
     value = sum(many_results[i][r][-1] for i in range(num_iterations)) / num_iterations
     # value = round(value) # For count queries
-    # value = max_freq(many_results, r, num_iterations)
+    
     
     # Append value and attached label to exposed result.
     labels = tuple(many_results[0][r][:-1])
@@ -63,3 +63,29 @@ if __name__ == "__main__":
   headers, result = expose(lambda: count0(["programming"], True))
   _pretty_print(headers, result)
   print("")
+
+'''
+Exposing average:
+Making 200 queries with noise. This may take a minute...
+
+| programming                   | AVG(age)                      | 
+=================================================================
+| 0-3 Years                     | 23.03124029692182             | 
+| 3-5 Years                     | 21.934642494063223            | 
+| 5-8 Years                     | 20.814831984071485            | 
+| 8-10 Years                    | 27.722446665005332            | 
+| More than 10 Years            | 26.33157752408725             | 
+=================================================================
+
+Exposing count:
+Making 200 queries with noise. This may take a minute...
+
+| programming                   | COUNT                         | 
+=================================================================
+| 0-3 Years                     | 2.805                         | 
+| 3-5 Years                     | 8.255                         | 
+| 5-8 Years                     | 3.6                           | 
+| 8-10 Years                    | 1.04                          | 
+| More than 10 Years            | 2.06                          | 
+=================================================================
+'''

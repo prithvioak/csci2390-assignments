@@ -60,12 +60,44 @@ When I ran this query a couple of times, I saw a variety of different values for
 ## Question 8
 _"Run the composition attack against the average age grouped by programming experience. What can you deduce from the exposed averages about Kinan's programming experience level? How confident are you in what you have deduced? Are there scenarios where they might be wrong?"_
 
-Hi
+Here's what we get from the denoised query:
+
+| programming | AVG(age) |
+| -------- | ------- |
+| 0-3 Years | 23.03124029692182 |
+| 3-5 Years | 21.934642494063223 |
+| 5-8 Years | 20.814831984071485 |
+| 8-10 Years | 27.722446665005332 |
+| More than 10 Years | 26.33157752408725 |
+
+Since Kinan is a PhD in computer science, they definitely cannot have programmed for less than 5 years. Also, given how small the average ages are for programming experiences of 0-3, 3-5, and 5-8 years, it is highly unlikely that Kinan falls under any of these categories. This leaves the chance that Kinan has either programmed for 8-10 years or more than 10 years, but it is hard to tell which category he falls under without getting more of an idea about the count of this data, since each data point has a huge impact for small counts.
+
+Even with this deduction, there is a decent chance that I am wrong. Without the counts, it is hard to tell the impact of Kinan being a part of the grouping to the average of the rest of the observations. Plus, we are making some assumptions to reach our conclusion. Maybe Kinan made it here without writing a single line of code until very recently...
 
 ## Question 9
 _"Reuse your composition attack from question 8 to compute the exact non-noised counts per programming experience level. Deduce Kinan's programming experience level, with high confidence, by looking at both the exposed counts and the previously exposed averages. Now summarize everything you've learned about Kinan!"_
 
-Hey
+Let's round the counts, and we get the following potential actual values for each age group:
+
+| programming | AVG(age) | COUNT |
+| -------- | ------- | ------- |
+| 0-3 Years | 23.03124029692182 | 3 |
+| 3-5 Years | 21.934642494063223 | 8 |
+| 5-8 Years | 20.814831984071485 | 4 |
+| 8-10 Years | 27.722446665005332 | 1 |
+| More than 10 Years | 26.33157752408725 | 2 |
+
+Since Kinan is a faculty in the department, we can assume that they have to have programmed for at least five years. Then, with the counts we have, we can deduce the answer with high confidence:
+- For Kinan (age 30) to have programmed for 5-8 years, the other people in this category would have to be, on average, less than 18 years old. Given our datapoints, this is not something that could really end up happening.
+- If there is one individual who has programmed for 8-10 years, it cannot be Kinan, since they are not close to being 27 or 28.
+This leaves the last (and most reasonable) category. So, we can say with high confidence that Kinan has programmed for **More than 10 years**!
+
+To summarize, here is everything we have learned about Kinan through this assignment:
+- **Kinan's favorite genre of music is metal**
+- **Kinan is 30 years old**
+- **Kinan has programmed for more than 10 years**
+- **Kinan's favorite color is black**
+- **Kinan's favorite sport is soccer**
 
 ## Question 10
 _"Does the class you implemented suffice to truly enforce that a dataset is never used beyond a certain privacy budget? Can developers intentionally or unintentionally over-use the dataset beyond the privacy budget? At a very high level, how would you design a different privacy budget enforcment mechanism that does not suffer these drawbacks?"_
