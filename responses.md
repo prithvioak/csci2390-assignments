@@ -102,4 +102,4 @@ To summarize, here is everything we have learned about Kinan through this assign
 ## Question 10
 _"Does the class you implemented suffice to truly enforce that a dataset is never used beyond a certain privacy budget? Can developers intentionally or unintentionally over-use the dataset beyond the privacy budget? At a very high level, how would you design a different privacy budget enforcment mechanism that does not suffer these drawbacks?"_
 
-Hello
+Although this class prevents exceeding a privacy budget within a given object, there is nothing stopping me, as a malicious developer, to create multiple class objects to interact with the dataset. This means that I can access the data as many times as needed to achieve a differencing attack. The way that I believe privacy budget could potentially be enforced better is to enforce mechanisms at the **client level** instead. If a request is coming from the same device/IP address (rather than within an object class), we might be able to better identify malicious users and mitigate differencing attacks!
